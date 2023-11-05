@@ -19,5 +19,7 @@ namespace Farcas_Hanna_Laborator2.Data
         public DbSet<Farcas_Hanna_Laborator2.Models.Publisher>? Publisher { get; set; }
 
         public DbSet<Farcas_Hanna_Laborator2.Models.Author>? Author { get; set; }
+
+        public DbSet<Farcas_Hanna_Laborator2.Models.Category>? Category { get; set; }
     }
 }

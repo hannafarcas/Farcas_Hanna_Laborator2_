@@ -25,10 +25,7 @@ namespace Farcas_Hanna_Laborator2.Models
         public int? AuthorID { get; set; }
         public Author? Author { get; set; }
 
-        public string AuthorFullName
-        {
-            get { return Author.FirstName + " " + Author.LastName; }
-        }
+        public ICollection<BookCategory> BookCategories { get; set;}
 
     }
 }
