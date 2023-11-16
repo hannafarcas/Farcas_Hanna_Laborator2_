@@ -31,10 +31,7 @@ namespace Farcas_Hanna_Laborator2.Pages.Categories
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Category == null || Category == null)
-            {
-                return Page();
-            }
+          
 
             _context.Category.Add(Category);
             await _context.SaveChangesAsync();

@@ -10,8 +10,6 @@ namespace Farcas_Hanna_Laborator2.Models
 
         [Display(Name = "Book Title")]
         public string Title { get; set; }   
-        /* public string Author { get; set; } */
-
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }

@@ -31,16 +31,14 @@ namespace Farcas_Hanna_Laborator2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Book", b =>
@@ -73,7 +71,7 @@ namespace Farcas_Hanna_Laborator2.Migrations
 
                     b.HasIndex("PublisherID");
 
-                    b.ToTable("Book", (string)null);
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.BookCategory", b =>
@@ -96,7 +94,33 @@ namespace Farcas_Hanna_Laborator2.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("BookCategory", (string)null);
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Borrowing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MemberID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("MemberID");
+
+                    b.ToTable("Borrowing");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Category", b =>
@@ -113,7 +137,35 @@ namespace Farcas_Hanna_Laborator2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Member", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Publisher", b =>
@@ -130,7 +182,7 @@ namespace Farcas_Hanna_Laborator2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Publisher", (string)null);
+                    b.ToTable("Publisher");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Book", b =>
@@ -167,6 +219,21 @@ namespace Farcas_Hanna_Laborator2.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Borrowing", b =>
+                {
+                    b.HasOne("Farcas_Hanna_Laborator2.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookID");
+
+                    b.HasOne("Farcas_Hanna_Laborator2.Models.Member", "Member")
+                        .WithMany("Borrowings")
+                        .HasForeignKey("MemberID");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Member");
+                });
+
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Author", b =>
                 {
                     b.Navigation("Books");
@@ -180,6 +247,11 @@ namespace Farcas_Hanna_Laborator2.Migrations
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Category", b =>
                 {
                     b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Member", b =>
+                {
+                    b.Navigation("Borrowings");
                 });
 
             modelBuilder.Entity("Farcas_Hanna_Laborator2.Models.Publisher", b =>
