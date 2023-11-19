@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Farcas_Hanna_Laborator2.Data;
 using Farcas_Hanna_Laborator2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Farcas_Hanna_Laborator2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Farcas_Hanna_Laborator2.Data.Farcas_Hanna_Laborator2Context _context;
